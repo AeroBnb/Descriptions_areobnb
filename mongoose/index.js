@@ -85,7 +85,7 @@ var paragraphsArr = [];
 
 // fs.appendFile();
 
-var size = 10000;
+var size = 10000000;
 var count = 1;
 
 var outerWrapper = () => {
@@ -105,7 +105,7 @@ var outerWrapper = () => {
       batchStart = Date.now();
       var listings = [];
 
-      for (var i = 0; i < 10000; i++) {
+      for (var i = 0; i < 20000; i++) {
         var listing = new Listing({
           id: count,
           name: namesArr[Math.floor(Math.random() * namesArr.length)],
@@ -126,17 +126,16 @@ var outerWrapper = () => {
 
         listings.push(listing);
 
-        listing.collection.insert(listings, function(err) {
-          if (err) {
-            return console.log(err);
-          } else {
-            resolve();
-          }
-        });
-
         count += 1;
-        console.log(count);
       }
+
+      listing.collection.insert(listings, function(err) {
+        if (err) {
+          return console.log(err);
+        } else {
+          resolve();
+        }
+      });
 
       console.log("batch done: count = " + count);
     });
