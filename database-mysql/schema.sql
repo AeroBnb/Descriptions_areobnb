@@ -4,9 +4,8 @@ CREATE DATABASE listings;
 
 USE listings;
 
-CREATE TABLE listing_description (
-	id INT(11) AUTO_INCREMENT NOT NULL, 
-	unique_ID INT(10) UNIQUE,
+CREATE TABLE listings (
+	id INT(11) AUTO_INCREMENT NOT NULL,
 	room_type MEDIUMTEXT,
 	user_name MEDIUMTEXT,
 	room_type_details MEDIUMTEXT,

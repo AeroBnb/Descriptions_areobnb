@@ -10,7 +10,8 @@
     "listpm2": "pm2 list",
     "pm2server": "pm2 show server",
     "pm2stop": "pm2 stop 0",
-    "seed": "mysql -h listings.cgs4awlnkox5.us-east-2.rds.amazonaws.com -u dhpatel15 -p -P 3306 < ./database-mysql/schema.sql"
+    "seed": "mysql -h listings.cgs4awlnkox5.us-east-2.rds.amazonaws.com -u dhpatel15 -p -P 3306 < ./database-mysql/schema.sql",
+    "populate": "node ./mongoose/index.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "image-webpack-loader": "^4.5.0",
     "mdbreact": "^4.8.2",
     "module-example": "^1.0.0",
+    "mongoose": "^5.3.11",
     "mysql": "^2.13.0",
     "puppeteer": "^1.9.0",
     "react": "^15.4.2",

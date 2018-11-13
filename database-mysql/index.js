@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
 });
 
 var selectAll = function(id, callback) {
-  var sql = "SELECT * FROM listing_description WHERE unique_ID=(?)";
+  var sql = "SELECT * FROM listings WHERE unique_ID=(?)";
   connection.query(sql, [id], function(err, results) {
     if (err) {
       callback(err, null);
@@ -21,7 +21,6 @@ var selectAll = function(id, callback) {
 };
 
 var insertAll = function(
-  ID,
   name,
   room_type,
   room_type_details,
@@ -36,11 +35,10 @@ var insertAll = function(
   // console.log(arguments);
 
   var sql =
-    "INSERT INTO listing_description (unique_ID, user_name, room_type, room_type_details, city, city_details, listing_details, guest_access_details, interaction_guests_details, other_details) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO listings (user_name, room_type, room_type_details, city, city_details, listing_details, guest_access_details, interaction_guests_details, other_details) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
   connection.query(
     sql,
     [
-      ID,
       name,
       room_type,
       room_type_details,
