@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const fs = require("fs");
 
 mongoose.connect(
   "mongodb://localhost/test",
@@ -90,13 +89,14 @@ var count = 1;
 
 var outerWrapper = () => {
   let start = Date.now();
+  console.log("start time: " + start / 1000);
 
   var wrapper = () => {
     if (count >= size) {
       console.log("done");
       var end = Date.now();
-
-      console.log((end - start) / 1000 / 60);
+      console.log("ending at: " + end / 1000);
+      console.log("total time in minutes: " + (end - start) / 1000 / 60);
       return;
     }
 
@@ -131,13 +131,11 @@ var outerWrapper = () => {
 
       listing.collection.insert(listings, function(err) {
         if (err) {
-          return console.log(err);
+          console.log("error");
         } else {
           resolve();
         }
       });
-
-      console.log("batch done: count = " + count);
     });
 
     promise.then(function() {

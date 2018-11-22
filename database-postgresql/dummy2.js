@@ -1,5 +1,13 @@
 var db = require("../database-mysql/index.js");
 const faker = require("faker");
+const knex = require("knex")({
+  client: "pg",
+  version: 10.5,
+  connection: {
+    host: "127.0.0.1",
+    database: "listings"
+  }
+});
 
 var namesArr = [];
 var roomsArr = [
@@ -42,58 +50,28 @@ function DataObj() {
   this.other_details =
     sentencesArr[Math.floor(Math.random() * sentencesArr.length)];
 }
-var size = 10000000;
-var count = 0;
 
-var outerWrapper = () => {
+// create an array of objs
+
+let seedPost = async () => {
   let start = Date.now();
+  for (var i = 0; i < 10000; i++) {
+    var insertArr = [];
 
-  var wrapper = () => {
-    if (count >= size) {
-      console.log("done");
-      var end = Date.now();
-
-      console.log((end - start) / 1000 / 60);
-      return;
+    for (var j = 0; j < 1000; j++) {
+      let data = new DataObj();
+      insertArr.push(data);
     }
-    var batchStart;
-    var promise = new Promise(function(resolve) {
-      batchStart = Date.now();
 
-      for (var i = 0; i < 20000; i++) {
-        count += 1;
-        let data = new DataObj();
-        db.insertAll(
-          data.name,
-          data.room_type,
-          data.room_type_details,
-          data.city,
-          data.city_details,
-          data.listing_details,
-          data.guest_access_details,
-          data.interaction_guests_details,
-          data.other_details,
-          function(err) {
-            if (err) {
-              console.log("error: " + err);
-            } else {
-              resolve();
-            }
-          }
-        );
-      }
-
-      console.log("batch done: count = " + count);
-    });
-
-    promise.then(function() {
-      var batchEnd = Date.now();
-      console.log((batchEnd - batchStart) / 1000);
-      wrapper();
-    });
-  };
-
-  wrapper();
+    try {
+      await knex("listings").insert(insertArr);
+      console.log("complete");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  var end = Date.now();
+  console.log((end - start) / 1000 / 60);
 };
 
-outerWrapper();
+seedPost();

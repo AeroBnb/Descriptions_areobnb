@@ -61,4 +61,4 @@ var insertAll = function(
 
 module.exports.selectAll = selectAll;
 module.exports.insertAll = insertAll;
-// module.exports.connection = connection;
+module.exports.connection = connection;
